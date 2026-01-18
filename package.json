@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "pg": "^8.17.1",
+    "playwright": "^1.57.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.57.0",
+    "@types/pg": "^8.16.0",
+    "typescript": "^5.9.3"
+  }
+}
