@@ -11,7 +11,7 @@ services:
       POSTGRES_PASSWORD: Mi@1122@ro
       POSTGRES_DB: test_db
     ports:
-      - "5432:5432" # This allows DBeaver on your laptop to talk to the DB inside Docker
+      - "5433:5432" # 5433 avoids clashing with a native Postgres service already bound to 5432 on this machine
     volumes:
       - pgdata:/var/lib/postgresql/data # This keeps your tables alive if the container stops
 

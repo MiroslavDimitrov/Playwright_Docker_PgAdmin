@@ -4,7 +4,7 @@ export const dbConfig = {
     user: 'postgres',
     password: 'Mi@1122@ro',
     host: 'localhost',
-    port: 5432,
+    port: 5433,
     database: 'postgres'
 }
 
@@ -30,6 +30,6 @@ export async function runQuery(query: string) {
 
     } finally {
         // 4. Critical: Close the bridge so we don't leak memory or exhaust connections.
-        await client.end;
+        await client.end();
     }
 }

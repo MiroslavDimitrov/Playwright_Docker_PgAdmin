@@ -1,66 +1,92 @@
-Full-Stack Automation Framework
-UI • API • Database Integration
+# Full-Stack Automation Framework
 
-This project is a containerized automation suite using Playwright for end-to-end testing and Docker to manage a local PostgreSQL environment.
-A high-quality README.md is the "front door" to your project. Since you are using a multi-layered architecture (Docker + Playwright + SQL), your README should act as a manual for anyone (including "future you") to get the environment running in minutes.
+**Database • API • UI**
 
-Here is a professional template tailored specifically to your current setup:
+A containerized automation suite that uses Playwright (TypeScript) for testing and Docker to run a local PostgreSQL instance. Database tests are in place; API and UI tests will be added.
 
-🚀 Quick Start
-1. Prerequisites
+## Quick Start
 
-    Node.js (v18+)
+### 1. Prerequisites
 
-    Docker Desktop
+- Node.js (v18+)
+- Docker Desktop
+- DBeaver or pgAdmin (optional, for browsing the database)
 
-    DBeaver (Optional - for DB visualization)
+### 2. Start the database
 
-2. Infrastructure Setup
-
-Spin up the Database Organism:
+```bash
 docker-compose up -d
+```
 
-3. Project Installation
-Install dependencies and Playwright browsers:
+This starts a `postgres:15` container named `postgres`, exposed on host port **5433** (mapped to 5432 inside the container).
 
+### 3. Install dependencies
+
+```bash
 npm install
 npx playwright install
+```
 
-4. Running Tests
+### 4. Run the tests
+
+```bash
 # Run all tests
 npx playwright test
 
-# Run a specific database test
-npx playwright test tests/database.spec.ts
+# Run a specific spec
+npx playwright test database.spec.ts
+```
 
-🛠️ Tech Stack
+## Tech Stack
 
-    Test Runner: Playwright (TypeScript)
+| Area        | Tool                       |
+| :---------- | :------------------------- |
+| Test runner | Playwright (`@playwright/test`, TypeScript) |
+| Database    | PostgreSQL 15 (Docker)     |
+| DB driver   | `pg` (node-postgres)       |
+| Linting     | ESLint                     |
+| CI/CD       | GitHub Actions (planned)   |
 
-    Database: PostgreSQL (Dockerized)
+## Project Structure
 
-    DB Driver: pg (node-postgres)
+```
+.
+├── docker-compose.yml   # PostgreSQL container definition
+├── db-client.ts         # runQuery() helper: connect, execute SQL, disconnect
+├── database.spec.ts     # DB test: create table, insert a row, verify it
+├── package.json
+└── test-results/        # Playwright output (generated)
+```
 
-    CI/CD: GitHub Actions (Planned)
+As API and UI tests are added, group them into folders (e.g. `tests/db`, `tests/api`, `tests/ui`).
 
-📂 Project Structure
+## Testing Layers
 
-    docker-compose.yml - Defines the PostgreSQL container.
+| Layer | Status  | Description |
+| :---- | :------ | :---------- |
+| **DB**  | Done    | Direct SQL validation against PostgreSQL using `runQuery` |
+| **API** | Planned | Backend endpoint validation with Playwright's `request` fixture |
+| **UI**  | Planned | End-to-end browser tests |
 
-    db-client.ts - The "Bridge" helper for SQL execution.
+### DB helper
 
-    tests/ - Contains UI, API, and DB spec files.
+`runQuery(sql)` in `db-client.ts` opens a connection, runs the query and always closes the connection. It returns the `pg` result object; the returned rows are in `result.rows`.
 
-    .github/workflows/ - CI/CD pipeline definitions.
+## Database Configuration
 
-🧪 Testing Layers
+Connection settings live in `dbConfig` in `db-client.ts` and must match `docker-compose.yml`:
 
-    DB Layer: Direct SQL validation using runQuery.
+| Setting  | Value       |
+| :------- | :---------- |
+| Host     | `localhost` |
+| Port     | `5433`      |
+| User     | `postgres`  |
+| Database | `postgres` (the compose file also creates `test_db`) |
 
-    API Layer: (Pending) Backend endpoint validation.
+The password is set in `docker-compose.yml` (`POSTGRES_PASSWORD`) and read from `db-client.ts`. Credentials are currently hard-coded for local development; move them to environment variables (e.g. a git-ignored `.env`) before sharing the repo or adding CI.
 
-    UI Layer: (Pending) End-to-end browser testing.
+## Troubleshooting
 
-📝 Environment Variables
-
-Ensure your .env (or db-client.ts) matches your Docker settings: | Variable | Value | | :--- | :--- | | User | your_user | | Password | your_password | | Port | 5432 |
+- **Connection refused:** check that the container is running with `docker ps`, and that the port in `db-client.ts` is 5433.
+- **Port already in use:** a native Postgres service may be bound to 5432. That is why the container uses 5433.
+- **Reset the database:** `docker-compose down -v` removes the container and its `pgdata` volume.
