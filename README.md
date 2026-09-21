@@ -50,6 +50,17 @@ Shortcuts for the common tasks are defined in `package.json`:
 | `npm run db:up` | Builds the image and starts the database (`docker-compose up -d --build`) |
 | `npm run db:down` | Stops and removes the database container (the data volume is kept) |
 
+### IDE support
+
+**Visual Studio** — open `Playwright_Docker_Pgadmin.sln`. The `.esproj` project wraps the `npm` scripts:
+
+- **Build / Rebuild** runs `npm run build` (type-check + Docker image build).
+- **Start** runs `npm test`.
+- The JavaScript project SDK is downloaded from NuGet on the first build, so internet access is needed once.
+- Run `npm install` yourself when dependencies change; the build does not do it.
+
+**VS Code** — open the folder. VS Code has no Build menu and does not use the `.esproj` or `.sln` files; use the `npm` scripts instead, from the terminal or the NPM Scripts view in the Explorer. Optionally install the *Playwright Test for VS Code* extension to run and debug tests from the editor.
+
 ## Tech Stack
 
 | Area        | Tool                       |
@@ -72,6 +83,8 @@ Shortcuts for the common tasks are defined in `package.json`:
 ├── db-client.ts         # runQuery() helper: connect, execute SQL, disconnect
 ├── database.spec.ts     # DB test: create table, insert a row, verify it
 ├── tsconfig.json        # TypeScript settings (strict, no emit)
+├── Playwright_Docker_Pgadmin.esproj  # Visual Studio project (wraps the npm scripts)
+├── Playwright_Docker_Pgadmin.sln     # Visual Studio solution
 ├── package.json         # Dependencies and npm scripts
 └── test-results/        # Playwright output (generated)
 ```
