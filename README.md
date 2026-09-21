@@ -59,7 +59,7 @@ Shortcuts for the common tasks are defined in `package.json`:
 - The JavaScript project SDK is downloaded from NuGet on the first build, so internet access is needed once.
 - Run `npm install` yourself when dependencies change; the build does not do it.
 
-**VS Code** — open the folder. VS Code has no Build menu and does not use the `.esproj` or `.sln` files; use the `npm` scripts instead, from the terminal or the NPM Scripts view in the Explorer. Optionally install the *Playwright Test for VS Code* extension to run and debug tests from the editor.
+**VS Code** — open the folder. VS Code has no Build menu and does not use the `.esproj` or `.sln` files; use the `npm` scripts instead, from the terminal or the NPM Scripts view in the Explorer. `.vscode/tasks.json` defines tasks for them: press `Ctrl+Shift+B` to build (type-check + Docker image), or use **Terminal → Run Task…** for type-check, tests and database start/stop. Optionally install the *Playwright Test for VS Code* extension to run and debug tests from the editor.
 
 ## Tech Stack
 
