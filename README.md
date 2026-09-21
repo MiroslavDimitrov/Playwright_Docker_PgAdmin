@@ -37,6 +37,19 @@ npx playwright test
 npx playwright test database.spec.ts
 ```
 
+### npm scripts
+
+Shortcuts for the common tasks are defined in `package.json`:
+
+| Script | What it does |
+| :----- | :----------- |
+| `npm test` | Runs the Playwright tests |
+| `npm run typecheck` | Type-checks the TypeScript (`tsc --noEmit`) |
+| `npm run build:image` | Builds the `playwright-pg:1.0` Docker image |
+| `npm run build` | Type-checks, then builds the Docker image |
+| `npm run db:up` | Builds the image and starts the database (`docker-compose up -d --build`) |
+| `npm run db:down` | Stops and removes the database container (the data volume is kept) |
+
 ## Tech Stack
 
 | Area        | Tool                       |
@@ -44,6 +57,7 @@ npx playwright test database.spec.ts
 | Test runner | Playwright (`@playwright/test`, TypeScript) |
 | Database    | PostgreSQL 15 (Docker)     |
 | DB driver   | `pg` (node-postgres)       |
+| Language    | TypeScript (`tsc` type-check) |
 | Linting     | ESLint                     |
 | CI/CD       | GitHub Actions (planned)   |
 
@@ -57,7 +71,8 @@ npx playwright test database.spec.ts
 ├── docker-compose.yml   # Builds the image and runs the container
 ├── db-client.ts         # runQuery() helper: connect, execute SQL, disconnect
 ├── database.spec.ts     # DB test: create table, insert a row, verify it
-├── package.json
+├── tsconfig.json        # TypeScript settings (strict, no emit)
+├── package.json         # Dependencies and npm scripts
 └── test-results/        # Playwright output (generated)
 ```
 
