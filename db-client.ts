@@ -5,7 +5,7 @@ export const dbConfig = {
     password: 'Mi@1122@ro',
     host: 'localhost',
     port: 5433,
-    database: 'postgres'
+    database: 'test_db'
 }
 
 /**

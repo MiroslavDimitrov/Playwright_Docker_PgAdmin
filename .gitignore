@@ -3,3 +3,8 @@ node_modules/
 test-results/
 playwright-report/
 .env
+obj/
+bin/
+dist/
+*.esproj.user
+*.slnx

@@ -1,4 +1,12 @@
 {
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "build:image": "docker build -t playwright-pg:1.0 .",
+    "build": "npm run typecheck && npm run build:image",
+    "db:up": "docker-compose up -d --build",
+    "db:down": "docker-compose down",
+    "test": "playwright test"
+  },
   "dependencies": {
     "pg": "^8.17.1",
     "playwright": "^1.57.0"

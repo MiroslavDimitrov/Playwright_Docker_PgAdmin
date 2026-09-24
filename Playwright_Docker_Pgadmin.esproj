@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/1.0.6578810">
+  <PropertyGroup>
+    <!-- Dependencies are installed manually with `npm install`, not on every build. -->
+    <ShouldRunNpmInstall>false</ShouldRunNpmInstall>
+    <!-- Build = type-check + build the Docker image (see "build" in package.json). -->
+    <BuildCommand>npm run build</BuildCommand>
+    <!-- F5 / Start runs the Playwright tests. -->
+    <StartupCommand>npm test</StartupCommand>
+  </PropertyGroup>
+</Project>

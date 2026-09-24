@@ -2,16 +2,26 @@ import { test, expect} from '@playwright/test';
 import { runQuery } from './db-client';
 
 test('Data Flow: Insert a task and verify it exists', async () => {
-    const createTableSQL = `
+    await runQuery(`
+        CREATE TABLE IF NOT EXISTS funkopoptable (
+            name TEXT NOT NULL,
+            category TEXT,
+            fugurenumber INTEGER
+        );
+    `);
+    await runQuery(`
         CREATE TABLE IF NOT EXISTS playwright_tasks (
             id SERIAL PRIMARY KEY,
             task_name TEXT NOT NULL,
             completed BOOLEAN DEFAULT FALSE
         );
-    `;
-    
-    await runQuery(createTableSQL);
-    console.log('Successfully created the playwright_tasks table!');
+    `);
+
+    await runQuery(`
+       insert into funkopoptable (name, category, fugurenumber)
+       values ('Batman Beyond', 'DC Heroes', 1230)
+    `);
+    console.log('Inserted Batman Beyond into funkopoptable!');
 
     const taskName = `Task created at ${new Date().toISOString()}`;
     
