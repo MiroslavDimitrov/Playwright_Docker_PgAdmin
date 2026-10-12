@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <PropertyGroup>
+    <PackageJsonScriptsTypecheck Condition="$(PackageJsonScriptsTypecheck) == ''">tsc --noEmit</PackageJsonScriptsTypecheck>
+    <PackageJsonScriptsBuildImage Condition="$(PackageJsonScriptsBuildImage) == ''">docker build -t playwright-pg:1.0 .</PackageJsonScriptsBuildImage>
+    <PackageJsonScriptsBuild Condition="$(PackageJsonScriptsBuild) == ''">npm run typecheck &amp;&amp; npm run build:image</PackageJsonScriptsBuild>
+    <PackageJsonScriptsDbUp Condition="$(PackageJsonScriptsDbUp) == ''">docker-compose up -d --build</PackageJsonScriptsDbUp>
+    <PackageJsonScriptsDbDown Condition="$(PackageJsonScriptsDbDown) == ''">docker-compose down</PackageJsonScriptsDbDown>
+    <PackageJsonScriptsTest Condition="$(PackageJsonScriptsTest) == ''">playwright test</PackageJsonScriptsTest>
+    <PackageJsonDependenciesPg Condition="$(PackageJsonDependenciesPg) == ''">^8.17.1</PackageJsonDependenciesPg>
+    <PackageJsonDependenciesPlaywright Condition="$(PackageJsonDependenciesPlaywright) == ''">^1.57.0</PackageJsonDependenciesPlaywright>
+    <PackageJsonDevdependenciesPlaywrightTest Condition="$(PackageJsonDevdependenciesPlaywrightTest) == ''">^1.57.0</PackageJsonDevdependenciesPlaywrightTest>
+    <PackageJsonDevdependenciesTypesPg Condition="$(PackageJsonDevdependenciesTypesPg) == ''">^8.16.0</PackageJsonDevdependenciesTypesPg>
+    <PackageJsonDevdependenciesEslint Condition="$(PackageJsonDevdependenciesEslint) == ''">^10.11.0</PackageJsonDevdependenciesEslint>
+    <PackageJsonDevdependenciesTypescript Condition="$(PackageJsonDevdependenciesTypescript) == ''">^5.9.3</PackageJsonDevdependenciesTypescript>
+  </PropertyGroup>
+</Project>

@@ -9,7 +9,7 @@ test('Data Flow: Insert a task and verify it exists', async () => {
             completed BOOLEAN DEFAULT FALSE
         );
     `;
-    
+    //new comment
     await runQuery(createTableSQL);
     console.log('Successfully created the playwright_tasks table!');
 
