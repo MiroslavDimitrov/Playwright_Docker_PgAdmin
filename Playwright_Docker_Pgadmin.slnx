@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="Playwright_Docker_Pgadmin.esproj">
+    <Build />
+    <Deploy />
+  </Project>
+</Solution>
